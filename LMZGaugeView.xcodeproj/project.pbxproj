@@ -10,18 +10,9 @@
 		2C506B581B9A7C4800D2B390 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C506B571B9A7C4800D2B390 /* AppDelegate.swift */; };
 		2C506B5A1B9A7C4800D2B390 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C506B591B9A7C4800D2B390 /* Images.xcassets */; };
 		2C506B5D1B9A7C4800D2B390 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C506B5B1B9A7C4800D2B390 /* MainMenu.xib */; };
-		2C506B691B9A7C4900D2B390 /* LMZGaugeViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C506B681B9A7C4900D2B390 /* LMZGaugeViewTests.swift */; };
+		2C506B741B9A7D0F00D2B390 /* LMZGaugeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C506B731B9A7D0F00D2B390 /* LMZGaugeView.swift */; };
+		2C506B761B9B458D00D2B390 /* LMZGaugeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C506B751B9B458D00D2B390 /* LMZGaugeDelegate.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		2C506B631B9A7C4900D2B390 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2C506B4A1B9A7C4800D2B390 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 2C506B511B9A7C4800D2B390;
-			remoteInfo = LMZGaugeView;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		2C506B521B9A7C4800D2B390 /* LMZGaugeView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LMZGaugeView.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -29,20 +20,12 @@
 		2C506B571B9A7C4800D2B390 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2C506B591B9A7C4800D2B390 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		2C506B5C1B9A7C4800D2B390 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		2C506B621B9A7C4900D2B390 /* LMZGaugeViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LMZGaugeViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		2C506B671B9A7C4900D2B390 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2C506B681B9A7C4900D2B390 /* LMZGaugeViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LMZGaugeViewTests.swift; sourceTree = "<group>"; };
+		2C506B731B9A7D0F00D2B390 /* LMZGaugeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LMZGaugeView.swift; path = LMZGaugeView/LMZGaugeView.swift; sourceTree = "<group>"; };
+		2C506B751B9B458D00D2B390 /* LMZGaugeDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LMZGaugeDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		2C506B4F1B9A7C4800D2B390 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2C506B5F1B9A7C4900D2B390 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -55,8 +38,8 @@
 		2C506B491B9A7C4800D2B390 = {
 			isa = PBXGroup;
 			children = (
-				2C506B541B9A7C4800D2B390 /* LMZGaugeView */,
-				2C506B651B9A7C4900D2B390 /* LMZGaugeViewTests */,
+				2C506B721B9A7C7600D2B390 /* LMZGaugeView */,
+				2C506B541B9A7C4800D2B390 /* LMZGaugeViewTest */,
 				2C506B531B9A7C4800D2B390 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -65,20 +48,20 @@
 			isa = PBXGroup;
 			children = (
 				2C506B521B9A7C4800D2B390 /* LMZGaugeView.app */,
-				2C506B621B9A7C4900D2B390 /* LMZGaugeViewTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2C506B541B9A7C4800D2B390 /* LMZGaugeView */ = {
+		2C506B541B9A7C4800D2B390 /* LMZGaugeViewTest */ = {
 			isa = PBXGroup;
 			children = (
 				2C506B571B9A7C4800D2B390 /* AppDelegate.swift */,
 				2C506B591B9A7C4800D2B390 /* Images.xcassets */,
 				2C506B5B1B9A7C4800D2B390 /* MainMenu.xib */,
 				2C506B551B9A7C4800D2B390 /* Supporting Files */,
+				2C506B751B9B458D00D2B390 /* LMZGaugeDelegate.swift */,
 			);
-			path = LMZGaugeView;
+			path = LMZGaugeViewTest;
 			sourceTree = "<group>";
 		};
 		2C506B551B9A7C4800D2B390 /* Supporting Files */ = {
@@ -89,21 +72,12 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		2C506B651B9A7C4900D2B390 /* LMZGaugeViewTests */ = {
+		2C506B721B9A7C7600D2B390 /* LMZGaugeView */ = {
 			isa = PBXGroup;
 			children = (
-				2C506B681B9A7C4900D2B390 /* LMZGaugeViewTests.swift */,
-				2C506B661B9A7C4900D2B390 /* Supporting Files */,
+				2C506B731B9A7D0F00D2B390 /* LMZGaugeView.swift */,
 			);
-			path = LMZGaugeViewTests;
-			sourceTree = "<group>";
-		};
-		2C506B661B9A7C4900D2B390 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				2C506B671B9A7C4900D2B390 /* Info.plist */,
-			);
-			name = "Supporting Files";
+			name = LMZGaugeView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -126,24 +100,6 @@
 			productReference = 2C506B521B9A7C4800D2B390 /* LMZGaugeView.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2C506B611B9A7C4900D2B390 /* LMZGaugeViewTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 2C506B6F1B9A7C4900D2B390 /* Build configuration list for PBXNativeTarget "LMZGaugeViewTests" */;
-			buildPhases = (
-				2C506B5E1B9A7C4900D2B390 /* Sources */,
-				2C506B5F1B9A7C4900D2B390 /* Frameworks */,
-				2C506B601B9A7C4900D2B390 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				2C506B641B9A7C4900D2B390 /* PBXTargetDependency */,
-			);
-			name = LMZGaugeViewTests;
-			productName = LMZGaugeViewTests;
-			productReference = 2C506B621B9A7C4900D2B390 /* LMZGaugeViewTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -155,10 +111,6 @@
 				TargetAttributes = {
 					2C506B511B9A7C4800D2B390 = {
 						CreatedOnToolsVersion = 6.4;
-					};
-					2C506B611B9A7C4900D2B390 = {
-						CreatedOnToolsVersion = 6.4;
-						TestTargetID = 2C506B511B9A7C4800D2B390;
 					};
 				};
 			};
@@ -176,7 +128,6 @@
 			projectRoot = "";
 			targets = (
 				2C506B511B9A7C4800D2B390 /* LMZGaugeView */,
-				2C506B611B9A7C4900D2B390 /* LMZGaugeViewTests */,
 			);
 		};
 /* End PBXProject section */
@@ -191,13 +142,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		2C506B601B9A7C4900D2B390 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -205,27 +149,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C506B741B9A7D0F00D2B390 /* LMZGaugeView.swift in Sources */,
 				2C506B581B9A7C4800D2B390 /* AppDelegate.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2C506B5E1B9A7C4900D2B390 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2C506B691B9A7C4900D2B390 /* LMZGaugeViewTests.swift in Sources */,
+				2C506B761B9B458D00D2B390 /* LMZGaugeDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		2C506B641B9A7C4900D2B390 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 2C506B511B9A7C4800D2B390 /* LMZGaugeView */;
-			targetProxy = 2C506B631B9A7C4900D2B390 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		2C506B5B1B9A7C4800D2B390 /* MainMenu.xib */ = {
@@ -324,7 +254,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = LMZGaugeView/Info.plist;
+				INFOPLIST_FILE = LMZGaugeViewTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -335,45 +265,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = LMZGaugeView/Info.plist;
+				INFOPLIST_FILE = LMZGaugeViewTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
-		2C506B701B9A7C4900D2B390 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = LMZGaugeViewTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LMZGaugeView.app/Contents/MacOS/LMZGaugeView";
-			};
-			name = Debug;
-		};
-		2C506B711B9A7C4900D2B390 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = LMZGaugeViewTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LMZGaugeView.app/Contents/MacOS/LMZGaugeView";
 			};
 			name = Release;
 		};
@@ -396,14 +290,7 @@
 				2C506B6E1B9A7C4900D2B390 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-		};
-		2C506B6F1B9A7C4900D2B390 /* Build configuration list for PBXNativeTarget "LMZGaugeViewTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				2C506B701B9A7C4900D2B390 /* Debug */,
-				2C506B711B9A7C4900D2B390 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
