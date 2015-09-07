@@ -12,7 +12,11 @@ import Cocoa
 @objc
 public protocol LMGaugeViewDelegate {
 	/// Return ring stroke color from the specified value.
-	optional  func gaugeView(gaugeView: LMZGaugeView, ringStokeColorForValue: CGFloat) -> NSColor?;
+	optional func gaugeViewRingColor(gaugeView: LMZGaugeView) -> NSColor?;
+	optional func gaugeViewLabel1Color(gaugeView: LMZGaugeView) -> NSColor?;
+	optional func gaugeViewLabel2Color(gaugeView: LMZGaugeView) -> NSColor?;
+	optional func gaugeViewLabel1String(gaugeView: LMZGaugeView) -> String?;
+	optional func gaugeViewLabel2String(gaugeView: LMZGaugeView) -> String?;
 }
 
 public class LMZGaugeView : NSView {
@@ -24,20 +28,7 @@ public class LMZGaugeView : NSView {
 				doubleValue = min( self.maxValue, value)
 			}
 			if oldValue != doubleValue {
-				if let formatter = self.unitFormatter {
-					self.valueLabel.stringValue = formatter.stringForObjectValue(self.doubleValue)!
-				} else {
-					self.valueLabel.stringValue = NSString(format:"%0.f", locale:nil, self.doubleValue) as String
-				}
-				if self.delegate != nil,
-					let valuecolor = self.delegate!.gaugeView?(self, ringStokeColorForValue: CGFloat(self.doubleValue)) {
-							self.ringColor = valuecolor
-				} else  {
-					self.ringColor = kDefaultRingColor
-				}
-				self.invalidateMath = true
-				self.valueChanged = true
-				self.needsDisplay = true
+				self.updateValueAndColor()
 			}
 		}
 	}
@@ -69,11 +60,7 @@ public class LMZGaugeView : NSView {
 	@IBInspectable var limitValue: Double = 50 {
 		didSet {
 			if oldValue != limitValue {
-				if let formatter = self.unitFormatter {
-					self.limitLabel.stringValue = "Limit \(formatter.stringForObjectValue(self.limitValue)!)"
-				} else {
-					self.limitLabel.stringValue = NSString(format:"Limit %0.f", locale:nil, self.limitValue) as String
-				}
+				self.label2.stringValue = self.stringForLabel2()
 			}
 		}
 	}
@@ -183,7 +170,7 @@ public class LMZGaugeView : NSView {
 	@IBInspectable var valueFont: NSFont? = NSFont(name: "HelveticaNeue-CondensedBold", size: 19) {
 		didSet {
 			if oldValue != valueFont {
-				self.valueLabel.font = valueFont
+				self.label1.font = valueFont
 			}
 		}
 	}
@@ -191,7 +178,7 @@ public class LMZGaugeView : NSView {
 	@IBInspectable var limitValueFont: NSFont? = NSFont(name: "HelveticaNeue-Condensed", size: 17) {
 		didSet {
 			if oldValue != limitValueFont {
-				self.limitLabel.font = limitValueFont
+				self.label2.font = limitValueFont
 			}
 		}
 	}
@@ -200,7 +187,7 @@ public class LMZGaugeView : NSView {
 		didSet {
 			if oldValue != valueTextColor {
 				if !self.useGaugeColor {
-					valueLabel.textColor = valueTextColor
+					label1.textColor = valueTextColor
 				}
 			}
 		}
@@ -209,9 +196,9 @@ public class LMZGaugeView : NSView {
 	@IBInspectable var useGaugeColor: Bool = true{
 		didSet {
 			if useGaugeColor {
-				valueLabel.textColor = self.ringColor
+				label1.textColor = self.currentRingColor
 			} else {
-				valueLabel.textColor = valueTextColor
+				label1.textColor = valueTextColor
 			}
 		}
 	}
@@ -219,13 +206,8 @@ public class LMZGaugeView : NSView {
 	@IBOutlet var unitFormatter: NSFormatter? {
 		didSet {
 			if oldValue != unitFormatter {
-				if let formatter = self.unitFormatter {
-					self.valueLabel.stringValue = formatter.stringForObjectValue(self.doubleValue)!
-					self.limitLabel.stringValue = "Limit \(formatter.stringForObjectValue(self.limitValue)!)"
-				} else {
-					self.valueLabel.stringValue = NSString(format:"%0.f", locale:nil, self.doubleValue) as String
-					self.limitLabel.stringValue = NSString(format:"Limit %0.f", locale:nil, self.limitValue) as String
-				}
+				self.label1.stringValue = self.stringForLabel1()
+				self.label2.stringValue = self.stringForLabel2()
 			}
 		}
 	}
@@ -233,21 +215,79 @@ public class LMZGaugeView : NSView {
 	/// The receiver of all gauge view delegate callbacks.
 	@IBOutlet var delegate: LMGaugeViewDelegate? {
 		didSet {
-			if self.delegate != nil,
-				let valuecolor = self.delegate!.gaugeView?(self, ringStokeColorForValue: CGFloat(self.doubleValue)) {
-					self.ringColor = valuecolor
-			} else  {
-				self.ringColor = kDefaultRingColor
+			updateValueAndColor()
+		}
+	}
+
+	func updateValueAndColor() {
+		self.label1.stringValue = self.stringForLabel1()
+		self.label2.stringValue = self.stringForLabel2()
+
+		if self.delegate != nil,
+			let valuecolor = self.delegate!.gaugeViewRingColor?(self) {
+				self.currentRingColor = valuecolor
+		} else  {
+			self.currentRingColor = kDefaultRingColor
+		}
+
+		if self.delegate != nil,
+			let valuecolor = self.delegate!.gaugeViewLabel1Color?(self) {
+				self.currentLabel1Color = valuecolor
+		} else {
+			if useGaugeColor {
+				self.currentLabel1Color = self.currentRingColor
+			} else {
+				self.currentLabel1Color = kDefaultRingColor
 			}
 		}
+		if self.delegate != nil,
+			let valuecolor = self.delegate!.gaugeViewLabel2Color?(self) {
+				self.currentLabel2Color = valuecolor
+		} else  {
+			if useGaugeColor {
+				self.currentLabel2Color = self.currentRingColor
+			} else {
+				self.currentLabel2Color = kDefaultRingColor
+			}
+		}
+
+		self.invalidateMath = true
+		self.valueChanged = true
+		self.needsDisplay = true
 	}
 
 	func getValueColor() -> NSColor {
 		if useGaugeColor {
-			return self.ringColor
+			return self.currentRingColor
 		} else {
 			return self.valueTextColor
 		}
+	}
+
+	func stringForLabel1() -> String {
+		if self.delegate != nil,
+			let valueString = self.delegate!.gaugeViewLabel1String?(self) {
+				return valueString
+		}
+		if let formatter = self.unitFormatter {
+			return formatter.stringForObjectValue(self.doubleValue)!
+		} else {
+			return NSString(format:"%0.f", locale:nil, self.doubleValue) as String
+		}
+	}
+
+	func stringForLabel2() -> String {
+		if self.delegate != nil,
+			let valueString = self.delegate!.gaugeViewLabel2String?(self) {
+				return valueString
+		}
+		let valueString: String!
+		if let formatter = self.unitFormatter {
+			valueString = formatter.stringForObjectValue(self.limitValue)!
+		} else {
+			valueString = NSString(format:"%0.f", locale:nil, self.limitValue) as String
+		}
+		return String(format: NSLocalizedString("Limit %@", comment: ""), valueString)
 	}
 
 	let kDefaultRingColor = NSColor(red: 76.0/255, green: 217.0/255, blue: 100.0/255, alpha: 1.0)
@@ -257,17 +297,32 @@ public class LMZGaugeView : NSView {
 	var divisionUnitValue: Double = 1
 	var invalidateMath: Bool = true
 	var valueChanged: Bool = true
-	var ringColor: NSColor = NSColor(red: 76.0/255, green: 217.0/255, blue: 100.0/255, alpha: 1.0) {
+	var currentRingColor: NSColor = NSColor(red: 76.0/255, green: 217.0/255, blue: 100.0/255, alpha: 1.0) {
 		didSet {
-			if oldValue != ringColor {
-				self.progressLayer.fillColor = ringColor.CGColor
-				self.progressLayer.strokeColor = ringColor.CGColor
+			if oldValue != currentRingColor {
+				self.progressLayer.fillColor = currentRingColor.CGColor
+				self.progressLayer.strokeColor = currentRingColor.CGColor
 				if useGaugeColor {
-					self.valueLabel.textColor = ringColor
+					self.label1.textColor = currentRingColor
 				}
 			}
 		}
 	}
+	var currentLabel1Color: NSColor = NSColor(red: 76.0/255, green: 217.0/255, blue: 100.0/255, alpha: 1.0) {
+		didSet {
+			if oldValue != currentLabel1Color {
+				self.label1.textColor = currentLabel1Color
+			}
+		}
+	}
+	var currentLabel2Color: NSColor = NSColor(red: 76.0/255, green: 217.0/255, blue: 100.0/255, alpha: 1.0) {
+		didSet {
+			if oldValue != currentLabel1Color {
+				self.label2.textColor = currentLabel1Color
+			}
+		}
+	}
+
 	lazy var progressLayer: CAShapeLayer! = {
 		self.wantsLayer = true
 
@@ -276,35 +331,27 @@ public class LMZGaugeView : NSView {
 		self.layer!.addSublayer(player)
 		return player
 	}()
-	lazy var valueLabel: NSTextField! = {
+	lazy var label1: NSTextField! = {
 		let label = NSTextField()
 		label.bezeled = false
 		label.drawsBackground = false
 		label.editable = false
 		label.selectable = false
 		label.alignment = NSTextAlignment.CenterTextAlignment
-		if let formatter = self.unitFormatter {
-			label.stringValue = formatter.stringForObjectValue(self.doubleValue)!
-		} else {
-			label.stringValue = NSString(format:"%0.f", locale:nil, self.doubleValue) as String
-		}
+		label.stringValue = self.stringForLabel1()
 		label.font = self.valueFont;
 		label.textColor = self.getValueColor()
 		self.addSubview(label)
 		return label
 	}()
-	lazy var limitLabel: NSTextField! = {
+	lazy var label2: NSTextField! = {
 		let label = NSTextField()
 		label.bezeled = false
 		label.drawsBackground = false
 		label.editable = false
 		label.selectable = false
 		label.alignment = NSTextAlignment.CenterTextAlignment
-		if let formatter = self.unitFormatter {
-			label.stringValue = "Limit \(formatter.stringForObjectValue(self.limitValue)!)"
-		} else {
-			label.stringValue = NSString(format:"Limit %0.f", locale:nil, self.limitValue) as String
-		}
+		label.stringValue = self.stringForLabel2()
 		label.font = self.limitValueFont;
 		label.textColor = self.valueTextColor;
 		self.addSubview(label)
@@ -414,14 +461,14 @@ public class LMZGaugeView : NSView {
 			divisionCenter.append(dotCenter)
 		}
 
-		var lblFrame = CGRect(origin: CGPointZero, size: valueLabel.intrinsicContentSize)
+		var lblFrame = CGRect(origin: CGPointZero, size: label1.intrinsicContentSize)
 		lblFrame.origin.y = (progressLayer.frame.height-lblFrame.height)/2
 		lblFrame.size.width = self.frame.width
-		self.valueLabel.frame = lblFrame
+		self.label1.frame = lblFrame
 
-		let origin = CGPoint(x:valueLabel.frame.origin.x, y: valueLabel.frame.origin.y-limitLabel.intrinsicContentSize.height)
-		let size = CGSize(width: CGRectGetWidth(self.valueLabel.frame), height:limitLabel.intrinsicContentSize.height)
-		self.limitLabel.frame = CGRect(origin: origin, size: size)
+		let origin = CGPoint(x:label1.frame.origin.x, y: label1.frame.origin.y-label2.intrinsicContentSize.height)
+		let size = CGSize(width: CGRectGetWidth(self.label1.frame), height:label2.intrinsicContentSize.height)
+		self.label2.frame = CGRect(origin: origin, size: size)
 	}
 
 	override public func drawRect(dirtyRect: NSRect) {

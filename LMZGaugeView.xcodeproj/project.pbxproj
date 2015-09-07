@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C29577C1B9E3DD200FC45E5 /* LMZGaugeView.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2C29577E1B9E3DD200FC45E5 /* LMZGaugeView.strings */; };
 		2C506B581B9A7C4800D2B390 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C506B571B9A7C4800D2B390 /* AppDelegate.swift */; };
 		2C506B5A1B9A7C4800D2B390 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C506B591B9A7C4800D2B390 /* Images.xcassets */; };
 		2C506B5D1B9A7C4800D2B390 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C506B5B1B9A7C4800D2B390 /* MainMenu.xib */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2C29577D1B9E3DD200FC45E5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LMZGaugeView.strings; sourceTree = "<group>"; };
 		2C506B521B9A7C4800D2B390 /* LMZGaugeView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LMZGaugeView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C506B561B9A7C4800D2B390 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2C506B571B9A7C4800D2B390 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 			isa = PBXGroup;
 			children = (
 				2C506B731B9A7D0F00D2B390 /* LMZGaugeView.swift */,
+				2C29577E1B9E3DD200FC45E5 /* LMZGaugeView.strings */,
 			);
 			name = LMZGaugeView;
 			sourceTree = "<group>";
@@ -137,6 +140,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C29577C1B9E3DD200FC45E5 /* LMZGaugeView.strings in Resources */,
 				2C506B5A1B9A7C4800D2B390 /* Images.xcassets in Resources */,
 				2C506B5D1B9A7C4800D2B390 /* MainMenu.xib in Resources */,
 			);
@@ -158,6 +162,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		2C29577E1B9E3DD200FC45E5 /* LMZGaugeView.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2C29577D1B9E3DD200FC45E5 /* en */,
+			);
+			name = LMZGaugeView.strings;
+			path = LMZGaugeView;
+			sourceTree = "<group>";
+		};
 		2C506B5B1B9A7C4800D2B390 /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
 			children = (

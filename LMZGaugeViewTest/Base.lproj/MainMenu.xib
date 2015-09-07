@@ -11,7 +11,7 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <numberFormatter formatterBehavior="default10_4" numberStyle="currency" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" minimumFractionDigits="2" maximumFractionDigits="2" id="0YL-Q8-uO5"/>
+        <numberFormatter formatterBehavior="custom10_4" numberStyle="currency" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" minimumFractionDigits="2" maximumFractionDigits="2" id="0YL-Q8-uO5"/>
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="LMZGaugeView" customModuleProvider="target">
             <connections>
                 <outlet property="ctrl" destination="HU5-aw-hqQ" id="Y5l-Cn-wTh"/>
@@ -708,13 +708,13 @@
                         <rect key="frame" x="18" y="321" width="444" height="21"/>
                         <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="SVl-z6-MCn"/>
                         <connections>
-                            <binding destination="Voe-Tx-rLC" name="maxValue" keyPath="self.ctrl.maxValue" id="RWh-Sg-56f"/>
-                            <binding destination="Voe-Tx-rLC" name="minValue" keyPath="self.ctrl.minValue" previousBinding="RWh-Sg-56f" id="bW9-6S-DYb"/>
                             <binding destination="Voe-Tx-rLC" name="value" keyPath="self.ctrl.doubleValue" previousBinding="bW9-6S-DYb" id="ZUJ-UV-aBL">
                                 <dictionary key="options">
                                     <bool key="NSValidatesImmediately" value="YES"/>
                                 </dictionary>
                             </binding>
+                            <binding destination="Voe-Tx-rLC" name="maxValue" keyPath="self.ctrl.maxValue" id="RWh-Sg-56f"/>
+                            <binding destination="Voe-Tx-rLC" name="minValue" keyPath="self.ctrl.minValue" previousBinding="RWh-Sg-56f" id="bW9-6S-DYb"/>
                         </connections>
                     </slider>
                 </subviews>

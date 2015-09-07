@@ -16,6 +16,6 @@ LMZGaugeView is a simple and customizable gauge control for OS X inspired by [LM
   s.osx.deployment_target = "10.10"
   s.source       = { :git => "https://github.com/zdima/LMZGaugeView.git", :tag => "0.0.1" }
   s.source_files = "LMZGaugeView/*.{swift}"
-  s.resource     = "LMZGaugeView/**/*.{xib,strings}"
+  s.resource     = "LMZGaugeView/**/*.{strings}"
 
 end
