@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "LMZGaugeView"
-  s.version      = "0.0.1"
+  s.version      = "0.0.2"
   s.summary      = "LMZGaugeView is a simple and customizable gauge control for iOS."
 
   s.description  = <<-DESC
@@ -14,7 +14,7 @@ LMZGaugeView is a simple and customizable gauge control for OS X inspired by [LM
   s.author       = { "Dmitriy Zakharkin" => "mail@zdima.net" }
   s.platform     = :osx
   s.osx.deployment_target = "10.10"
-  s.source       = { :git => "https://github.com/zdima/LMZGaugeView.git", :tag => "0.0.1" }
+  s.source       = { :git => "https://github.com/zdima/LMZGaugeView.git", :tag => "0.0.2" }
   s.source_files = "LMZGaugeView/*.{swift}"
   s.resource     = "LMZGaugeView/**/*.{strings}"
 

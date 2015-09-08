@@ -39,7 +39,7 @@ public class LMZGaugeView : NSView {
 		doubleValue = doubleFromAnyObject(value)
 	}
 	/// Minimum value.
-	@IBInspectable var minValue: Double = 0 {
+	@IBInspectable public var minValue: Double = 0 {
 		didSet {
 			if oldValue != minValue {
 				self.invalidateMath = true
@@ -48,7 +48,7 @@ public class LMZGaugeView : NSView {
 		}
 	}
 	/// Maximum value.
-	@IBInspectable var maxValue: Double = 100 {
+	@IBInspectable public var maxValue: Double = 100 {
 		didSet {
 			if oldValue != maxValue {
 				self.invalidateMath = true
@@ -57,7 +57,7 @@ public class LMZGaugeView : NSView {
 		}
 	}
 	/// Limit value.
-	@IBInspectable var limitValue: Double = 50 {
+	@IBInspectable public var limitValue: Double = 50 {
 		didSet {
 			if oldValue != limitValue {
 				self.label2.stringValue = self.stringForLabel2()
@@ -65,7 +65,7 @@ public class LMZGaugeView : NSView {
 		}
 	}
 	/// The number of divisions.
-	@IBInspectable var numOfDivisions: Int = 10 {
+	@IBInspectable public var numOfDivisions: Int = 10 {
 		didSet {
 			if oldValue != numOfDivisions {
 				self.invalidateMath = true
@@ -74,7 +74,7 @@ public class LMZGaugeView : NSView {
 		}
 	}
 	/// The number of subdivisions.
-	@IBInspectable var numOfSubDivisions: Int = 1 {
+	@IBInspectable public var numOfSubDivisions: Int = 1 {
 		didSet {
 			if oldValue != numOfSubDivisions {
 				self.invalidateMath = true
@@ -83,7 +83,7 @@ public class LMZGaugeView : NSView {
 		}
 	}
 	/// The thickness of the ring.
-	@IBInspectable var ringThickness: CGFloat = 15 {
+	@IBInspectable public var ringThickness: CGFloat = 15 {
 		didSet {
 			if oldValue != ringThickness {
 				self.invalidateMath = true
@@ -92,7 +92,7 @@ public class LMZGaugeView : NSView {
 		}
 	}
 	/// The background color of the ring.
-	@IBInspectable var ringBackgroundColor: NSColor = NSColor(white: 0.9, alpha: 1.0) {
+	@IBInspectable public var ringBackgroundColor: NSColor = NSColor(white: 0.9, alpha: 1.0) {
 		didSet {
 			if oldValue != ringBackgroundColor {
 				self.needsDisplay = true
@@ -100,7 +100,7 @@ public class LMZGaugeView : NSView {
 		}
 	}
 	/// The divisions radius.
-	@IBInspectable var divisionsRadius: CGFloat = 1.25 {
+	@IBInspectable public var divisionsRadius: CGFloat = 1.25 {
 		didSet {
 			if oldValue != divisionsRadius {
 				self.invalidateMath = true
@@ -109,7 +109,7 @@ public class LMZGaugeView : NSView {
 		}
 	}
 	/// The divisions color.
-	@IBInspectable var divisionsColor: NSColor = NSColor(white: 0.5, alpha: 1.0) {
+	@IBInspectable public var divisionsColor: NSColor = NSColor(white: 0.5, alpha: 1.0) {
 		didSet {
 			if oldValue != divisionsColor {
 				self.needsDisplay = true
@@ -117,7 +117,7 @@ public class LMZGaugeView : NSView {
 		}
 	}
 	/// The padding between ring and divisions.
-	@IBInspectable var divisionsPadding: CGFloat = 12 {
+	@IBInspectable public var divisionsPadding: CGFloat = 12 {
 		didSet {
 			if oldValue != divisionsPadding {
 				self.invalidateMath = true
@@ -126,7 +126,7 @@ public class LMZGaugeView : NSView {
 		}
 	}
 	/// The subdivisions radius.
-	@IBInspectable var subDivisionsRadius: CGFloat = 0.75 {
+	@IBInspectable public var subDivisionsRadius: CGFloat = 0.75 {
 		didSet {
 			if oldValue != subDivisionsRadius {
 				self.invalidateMath = true
@@ -135,7 +135,7 @@ public class LMZGaugeView : NSView {
 		}
 	}
 	/// The subdivisions color.
-	@IBInspectable var subDivisionsColor: NSColor = NSColor(white: 0.5, alpha: 0.5) {
+	@IBInspectable public var subDivisionsColor: NSColor = NSColor(white: 0.5, alpha: 0.5) {
 		didSet {
 			if oldValue != subDivisionsColor {
 				self.needsDisplay = true
@@ -143,7 +143,7 @@ public class LMZGaugeView : NSView {
 		}
 	}
 	/// A boolean indicates whether to show limit dot.
-	@IBInspectable var showLimitDot: Bool = true {
+	@IBInspectable public var showLimitDot: Bool = true {
 		didSet {
 			if oldValue != showLimitDot {
 				self.needsDisplay = true
@@ -151,7 +151,7 @@ public class LMZGaugeView : NSView {
 		}
 	}
 	/// The radius of limit dot.
-	@IBInspectable var limitDotRadius: CGFloat = 2 {
+	@IBInspectable public var limitDotRadius: CGFloat = 2 {
 		didSet {
 			if oldValue != limitDotRadius {
 				self.needsDisplay = true
@@ -159,7 +159,7 @@ public class LMZGaugeView : NSView {
 		}
 	}
 	/// The color of limit dot.
-	@IBInspectable var limitDotColor: NSColor = NSColor.redColor() {
+	@IBInspectable public var limitDotColor: NSColor = NSColor.redColor() {
 		didSet {
 			if oldValue != limitDotColor {
 				self.needsDisplay = true
@@ -167,7 +167,7 @@ public class LMZGaugeView : NSView {
 		}
 	}
 	/// Font of value label.
-	@IBInspectable var valueFont: NSFont? = NSFont(name: "HelveticaNeue-CondensedBold", size: 19) {
+	@IBInspectable public var valueFont: NSFont? = NSFont(name: "HelveticaNeue-CondensedBold", size: 19) {
 		didSet {
 			if oldValue != valueFont {
 				self.label1.font = valueFont
@@ -175,7 +175,7 @@ public class LMZGaugeView : NSView {
 		}
 	}
 	/// Font of limit value label.
-	@IBInspectable var limitValueFont: NSFont? = NSFont(name: "HelveticaNeue-Condensed", size: 17) {
+	@IBInspectable public var limitValueFont: NSFont? = NSFont(name: "HelveticaNeue-Condensed", size: 17) {
 		didSet {
 			if oldValue != limitValueFont {
 				self.label2.font = limitValueFont
@@ -183,7 +183,7 @@ public class LMZGaugeView : NSView {
 		}
 	}
 	/// Text color of value label.
-	@IBInspectable var valueTextColor: NSColor = NSColor(white: 0.1, alpha: 1.0) {
+	@IBInspectable public var valueTextColor: NSColor = NSColor(white: 0.1, alpha: 1.0) {
 		didSet {
 			if oldValue != valueTextColor {
 				if !self.useGaugeColor {
@@ -193,7 +193,7 @@ public class LMZGaugeView : NSView {
 		}
 	}
 	/// Use gauge color to show the value
-	@IBInspectable var useGaugeColor: Bool = true{
+	@IBInspectable public var useGaugeColor: Bool = true{
 		didSet {
 			if useGaugeColor {
 				label1.textColor = self.currentRingColor
@@ -203,7 +203,7 @@ public class LMZGaugeView : NSView {
 		}
 	}
 	/// The unit of measurement.
-	@IBOutlet var unitFormatter: NSFormatter? {
+	@IBOutlet public var unitFormatter: NSFormatter? {
 		didSet {
 			if oldValue != unitFormatter {
 				self.label1.stringValue = self.stringForLabel1()
@@ -213,7 +213,7 @@ public class LMZGaugeView : NSView {
 	}
 
 	/// The receiver of all gauge view delegate callbacks.
-	@IBOutlet var delegate: LMGaugeViewDelegate? {
+	@IBOutlet public var delegate: LMGaugeViewDelegate? {
 		didSet {
 			updateValueAndColor()
 		}
