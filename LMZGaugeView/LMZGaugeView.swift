@@ -375,8 +375,11 @@ public class LMZGaugeView : NSView {
 
 	func angleFromValue( value: Double) -> CGFloat {
 		let level = (value - minValue)
-		let angle = level * divisionUnitAngle / divisionUnitValue  + startAngle
-		return CGFloat(angle)
+		if divisionUnitValue != 0 {
+			let angle = level * divisionUnitAngle / divisionUnitValue  + startAngle
+			return CGFloat(angle)
+		}
+		return CGFloat(startAngle)
 	}
 
 	func drawDotAtContext(context: CGContextRef, center: CGPoint, radius: CGFloat, fillColor: CGColorRef ) {
