@@ -15,7 +15,7 @@ class LMZGaugeDelegate : NSObject, LMGaugeViewDelegate
 	func gaugeViewRingColor(gaugeView: LMZGaugeView) -> NSColor? {
 
 		var power: Double = 0
-		var greenPower = gaugeView.minValue+(gaugeView.limitValue - gaugeView.minValue)*0.75
+		let greenPower = gaugeView.minValue+(gaugeView.limitValue - gaugeView.minValue)*0.75
 		if gaugeView.doubleValue > greenPower {
 			power = min((gaugeView.doubleValue-greenPower) / (gaugeView.limitValue - greenPower), 1.0)
 		}

@@ -24,7 +24,7 @@ public class LMZGaugeView : NSView {
 	public var doubleValue: Double = 0 {
 		didSet {
 			if oldValue != doubleValue {
-				var value = max( self.minValue, doubleValue)
+				let value = max( self.minValue, doubleValue)
 				doubleValue = min( self.maxValue, value)
 			}
 			if oldValue != doubleValue {
@@ -32,10 +32,10 @@ public class LMZGaugeView : NSView {
 			}
 		}
 	}
-	override public func value() -> AnyObject? {
+	public func value() -> AnyObject? {
 		return NSNumber(double: doubleValue)
 	}
-	override public func setValue(value: AnyObject?) {
+	public func setValue(value: AnyObject?) {
 		doubleValue = doubleFromAnyObject(value)
 	}
 	/// Minimum value.
@@ -223,15 +223,13 @@ public class LMZGaugeView : NSView {
 		self.label1.stringValue = self.stringForLabel1()
 		self.label2.stringValue = self.stringForLabel2()
 
-		if self.delegate != nil,
-			let valuecolor = self.delegate!.gaugeViewRingColor?(self) {
+		if let valuecolor = self.delegate?.gaugeViewRingColor?(self) {
 				self.currentRingColor = valuecolor
-		} else  {
+		} else {
 			self.currentRingColor = kDefaultRingColor
 		}
 
-		if self.delegate != nil,
-			let valuecolor = self.delegate!.gaugeViewLabel1Color?(self) {
+		if let valuecolor = self.delegate?.gaugeViewLabel1Color?(self) {
 				self.currentLabel1Color = valuecolor
 		} else {
 			if useGaugeColor {
@@ -240,8 +238,7 @@ public class LMZGaugeView : NSView {
 				self.currentLabel1Color = kDefaultRingColor
 			}
 		}
-		if self.delegate != nil,
-			let valuecolor = self.delegate!.gaugeViewLabel2Color?(self) {
+		if let valuecolor = self.delegate?.gaugeViewLabel2Color?(self) {
 				self.currentLabel2Color = valuecolor
 		} else  {
 			if useGaugeColor {
@@ -265,27 +262,21 @@ public class LMZGaugeView : NSView {
 	}
 
 	func stringForLabel1() -> String {
-		if self.delegate != nil,
-			let valueString = self.delegate!.gaugeViewLabel1String?(self) {
-				return valueString
+		if let valueString = self.delegate?.gaugeViewLabel1String?(self) {
+			return valueString
 		}
-		if let formatter = self.unitFormatter {
-			return formatter.stringForObjectValue(self.doubleValue)!
-		} else {
+		guard let returnValue = self.unitFormatter?.stringForObjectValue(self.doubleValue) else {
 			return NSString(format:"%0.f", locale:nil, self.doubleValue) as String
 		}
+		return returnValue
 	}
 
 	func stringForLabel2() -> String {
-		if self.delegate != nil,
-			let valueString = self.delegate!.gaugeViewLabel2String?(self) {
-				return valueString
+		if let valueString = self.delegate?.gaugeViewLabel2String?(self) {
+			return valueString
 		}
-		let valueString: String!
-		if let formatter = self.unitFormatter {
-			valueString = formatter.stringForObjectValue(self.limitValue)!
-		} else {
-			valueString = NSString(format:"%0.f", locale:nil, self.limitValue) as String
+		guard let valueString = self.unitFormatter?.stringForObjectValue(self.limitValue) else {
+			return NSString(format:NSLocalizedString("Limit %0.f", comment: ""), locale:nil, self.limitValue) as String
 		}
 		return String(format: NSLocalizedString("Limit %@", comment: ""), valueString)
 	}
@@ -337,7 +328,7 @@ public class LMZGaugeView : NSView {
 		label.drawsBackground = false
 		label.editable = false
 		label.selectable = false
-		label.alignment = NSTextAlignment.CenterTextAlignment
+		label.alignment = .Center
 		label.stringValue = self.stringForLabel1()
 		label.font = self.valueFont;
 		label.textColor = self.getValueColor()
@@ -350,7 +341,7 @@ public class LMZGaugeView : NSView {
 		label.drawsBackground = false
 		label.editable = false
 		label.selectable = false
-		label.alignment = NSTextAlignment.CenterTextAlignment
+		label.alignment = .Center
 		label.stringValue = self.stringForLabel2()
 		label.font = self.limitValueFont;
 		label.textColor = self.valueTextColor;
@@ -523,7 +514,7 @@ extension Double {
 }
 
 func BezierPath(bezier: NSBezierPath) -> CGPath {
-	var path: CGMutablePath = CGPathCreateMutable()
+	let path: CGMutablePath = CGPathCreateMutable()
 	var points: [NSPoint] = [NSPoint(),NSPoint(),NSPoint()]
 	var didClosePath: Bool = false
 
@@ -545,5 +536,5 @@ func BezierPath(bezier: NSBezierPath) -> CGPath {
 	if didClosePath == false {
 		CGPathCloseSubpath(path)
 	}
-	return CGPathCreateCopy(path)
+	return CGPathCreateCopy(path)!
 }
