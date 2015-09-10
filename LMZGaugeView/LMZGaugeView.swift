@@ -10,7 +10,7 @@ import Foundation
 import Cocoa
 
 @objc
-public protocol LMGaugeViewDelegate {
+public protocol LMZGaugeViewDelegate {
 	/// Return ring stroke color from the specified value.
 	optional func gaugeViewRingColor(gaugeView: LMZGaugeView) -> NSColor?;
 	optional func gaugeViewLabel1Color(gaugeView: LMZGaugeView) -> NSColor?;
@@ -213,7 +213,7 @@ public class LMZGaugeView : NSView {
 	}
 
 	/// The receiver of all gauge view delegate callbacks.
-	@IBOutlet public var delegate: LMGaugeViewDelegate? {
+	@IBOutlet public var delegate: LMZGaugeViewDelegate? {
 		didSet {
 			updateValueAndColor()
 		}
