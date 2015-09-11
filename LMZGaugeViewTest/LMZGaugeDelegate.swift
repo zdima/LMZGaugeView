@@ -10,7 +10,7 @@ import Foundation
 import Cocoa
 
 @objc
-class LMZGaugeDelegate : NSObject, LMGaugeViewDelegate
+class LMZGaugeDelegate : NSObject, LMZGaugeViewDelegate
 {
 	func gaugeViewRingColor(gaugeView: LMZGaugeView) -> NSColor? {
 
