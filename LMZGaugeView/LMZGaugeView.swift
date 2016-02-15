@@ -19,7 +19,7 @@ public protocol LMZGaugeViewDelegate {
 	optional func gaugeViewLabel2String(gaugeView: LMZGaugeView) -> String?;
 }
 
-public class LMZGaugeView : NSView {
+public class LMZGaugeView: NSView {
 	/// Current value.
 	public var doubleValue: Double = 0 {
 		didSet {
@@ -349,7 +349,7 @@ public class LMZGaugeView : NSView {
 		return label
 	}()
 
-	func doubleFromAnyObject( any:AnyObject? ) -> Double {
+	func doubleFromAnyObject(any: AnyObject? ) -> Double {
 		if let theValue: AnyObject = any {
 			if let dValue = theValue as? Double {
 				return dValue
@@ -496,7 +496,7 @@ public class LMZGaugeView : NSView {
 }
 
 extension Int {
-	var toRadians : CGFloat {
+	var toRadians: CGFloat {
 		return CGFloat(self) * CGFloat(M_PI) / 180.0
 	}
 	var toDegree: CGFloat {
@@ -505,7 +505,7 @@ extension Int {
 }
 
 extension Double {
-	var toRadians : CGFloat {
+	var toRadians: CGFloat {
 		return CGFloat(self) * CGFloat(M_PI) / 180.0
 	}
 	var toDegree: CGFloat {
