@@ -12,16 +12,16 @@ import Cocoa
 @objc
 public protocol LMZGaugeViewDelegate {
 	/// Return ring stroke color from the specified value.
-	optional func gaugeViewRingColor(gaugeView: LMZGaugeView) -> NSColor?;
-	optional func gaugeViewLabel1Color(gaugeView: LMZGaugeView) -> NSColor?;
-	optional func gaugeViewLabel2Color(gaugeView: LMZGaugeView) -> NSColor?;
-	optional func gaugeViewLabel1String(gaugeView: LMZGaugeView) -> String?;
-	optional func gaugeViewLabel2String(gaugeView: LMZGaugeView) -> String?;
+	@objc optional func gaugeViewRingColor(_ gaugeView: LMZGaugeView) -> NSColor?;
+	@objc optional func gaugeViewLabel1Color(_ gaugeView: LMZGaugeView) -> NSColor?;
+	@objc optional func gaugeViewLabel2Color(_ gaugeView: LMZGaugeView) -> NSColor?;
+	@objc optional func gaugeViewLabel1String(_ gaugeView: LMZGaugeView) -> String?;
+	@objc optional func gaugeViewLabel2String(_ gaugeView: LMZGaugeView) -> String?;
 }
 
-public class LMZGaugeView: NSView {
+open class LMZGaugeView: NSView {
 	/// Current value.
-	public var doubleValue: Double = 0 {
+	open var doubleValue: Double = 0 {
 		didSet {
 			if oldValue != doubleValue {
 				let value = max( self.minValue, doubleValue)
@@ -32,14 +32,14 @@ public class LMZGaugeView: NSView {
 			}
 		}
 	}
-	public func value() -> AnyObject? {
-		return NSNumber(double: doubleValue)
+	open func value() -> AnyObject? {
+		return NSNumber(value: doubleValue as Double)
 	}
-	public func setValue(value: AnyObject?) {
+	open func setValue(_ value: AnyObject?) {
 		doubleValue = doubleFromAnyObject(value)
 	}
 	/// Minimum value.
-	@IBInspectable public var minValue: Double = 0 {
+	@IBInspectable open var minValue: Double = 0 {
 		didSet {
 			if oldValue != minValue {
 				self.invalidateMath = true
@@ -48,7 +48,7 @@ public class LMZGaugeView: NSView {
 		}
 	}
 	/// Maximum value.
-	@IBInspectable public var maxValue: Double = 100 {
+	@IBInspectable open var maxValue: Double = 100 {
 		didSet {
 			if oldValue != maxValue {
 				self.invalidateMath = true
@@ -57,7 +57,7 @@ public class LMZGaugeView: NSView {
 		}
 	}
 	/// Limit value.
-	@IBInspectable public var limitValue: Double = 50 {
+	@IBInspectable open var limitValue: Double = 50 {
 		didSet {
 			if oldValue != limitValue {
 				self.label2.stringValue = self.stringForLabel2()
@@ -65,7 +65,7 @@ public class LMZGaugeView: NSView {
 		}
 	}
 	/// The number of divisions.
-	@IBInspectable public var numOfDivisions: Int = 10 {
+	@IBInspectable open var numOfDivisions: Int = 10 {
 		didSet {
 			if oldValue != numOfDivisions {
 				self.invalidateMath = true
@@ -74,7 +74,7 @@ public class LMZGaugeView: NSView {
 		}
 	}
 	/// The number of subdivisions.
-	@IBInspectable public var numOfSubDivisions: Int = 1 {
+	@IBInspectable open var numOfSubDivisions: Int = 1 {
 		didSet {
 			if oldValue != numOfSubDivisions {
 				self.invalidateMath = true
@@ -83,7 +83,7 @@ public class LMZGaugeView: NSView {
 		}
 	}
 	/// The thickness of the ring.
-	@IBInspectable public var ringThickness: CGFloat = 15 {
+	@IBInspectable open var ringThickness: CGFloat = 15 {
 		didSet {
 			if oldValue != ringThickness {
 				self.invalidateMath = true
@@ -92,7 +92,7 @@ public class LMZGaugeView: NSView {
 		}
 	}
 	/// The background color of the ring.
-	@IBInspectable public var ringBackgroundColor: NSColor = NSColor(white: 0.9, alpha: 1.0) {
+	@IBInspectable open var ringBackgroundColor: NSColor = NSColor(white: 0.9, alpha: 1.0) {
 		didSet {
 			if oldValue != ringBackgroundColor {
 				self.needsDisplay = true
@@ -100,7 +100,7 @@ public class LMZGaugeView: NSView {
 		}
 	}
 	/// The divisions radius.
-	@IBInspectable public var divisionsRadius: CGFloat = 1.25 {
+	@IBInspectable open var divisionsRadius: CGFloat = 1.25 {
 		didSet {
 			if oldValue != divisionsRadius {
 				self.invalidateMath = true
@@ -109,7 +109,7 @@ public class LMZGaugeView: NSView {
 		}
 	}
 	/// The divisions color.
-	@IBInspectable public var divisionsColor: NSColor = NSColor(white: 0.5, alpha: 1.0) {
+	@IBInspectable open var divisionsColor: NSColor = NSColor(white: 0.5, alpha: 1.0) {
 		didSet {
 			if oldValue != divisionsColor {
 				self.needsDisplay = true
@@ -117,7 +117,7 @@ public class LMZGaugeView: NSView {
 		}
 	}
 	/// The padding between ring and divisions.
-	@IBInspectable public var divisionsPadding: CGFloat = 12 {
+	@IBInspectable open var divisionsPadding: CGFloat = 12 {
 		didSet {
 			if oldValue != divisionsPadding {
 				self.invalidateMath = true
@@ -126,7 +126,7 @@ public class LMZGaugeView: NSView {
 		}
 	}
 	/// The subdivisions radius.
-	@IBInspectable public var subDivisionsRadius: CGFloat = 0.75 {
+	@IBInspectable open var subDivisionsRadius: CGFloat = 0.75 {
 		didSet {
 			if oldValue != subDivisionsRadius {
 				self.invalidateMath = true
@@ -135,7 +135,7 @@ public class LMZGaugeView: NSView {
 		}
 	}
 	/// The subdivisions color.
-	@IBInspectable public var subDivisionsColor: NSColor = NSColor(white: 0.5, alpha: 0.5) {
+	@IBInspectable open var subDivisionsColor: NSColor = NSColor(white: 0.5, alpha: 0.5) {
 		didSet {
 			if oldValue != subDivisionsColor {
 				self.needsDisplay = true
@@ -143,7 +143,7 @@ public class LMZGaugeView: NSView {
 		}
 	}
 	/// A boolean indicates whether to show limit dot.
-	@IBInspectable public var showLimitDot: Bool = true {
+	@IBInspectable open var showLimitDot: Bool = true {
 		didSet {
 			if oldValue != showLimitDot {
 				self.needsDisplay = true
@@ -151,7 +151,7 @@ public class LMZGaugeView: NSView {
 		}
 	}
 	/// The radius of limit dot.
-	@IBInspectable public var limitDotRadius: CGFloat = 2 {
+	@IBInspectable open var limitDotRadius: CGFloat = 2 {
 		didSet {
 			if oldValue != limitDotRadius {
 				self.needsDisplay = true
@@ -159,7 +159,7 @@ public class LMZGaugeView: NSView {
 		}
 	}
 	/// The color of limit dot.
-	@IBInspectable public var limitDotColor: NSColor = NSColor.redColor() {
+	@IBInspectable open var limitDotColor: NSColor = NSColor.red {
 		didSet {
 			if oldValue != limitDotColor {
 				self.needsDisplay = true
@@ -167,7 +167,7 @@ public class LMZGaugeView: NSView {
 		}
 	}
 	/// Font of value label.
-	@IBInspectable public var valueFont: NSFont? = NSFont(name: "HelveticaNeue-CondensedBold", size: 19) {
+	@IBInspectable open var valueFont: NSFont? = NSFont(name: "HelveticaNeue-CondensedBold", size: 19) {
 		didSet {
 			if oldValue != valueFont {
 				self.label1.font = valueFont
@@ -175,7 +175,7 @@ public class LMZGaugeView: NSView {
 		}
 	}
 	/// Font of limit value label.
-	@IBInspectable public var limitValueFont: NSFont? = NSFont(name: "HelveticaNeue-Condensed", size: 17) {
+	@IBInspectable open var limitValueFont: NSFont? = NSFont(name: "HelveticaNeue-Condensed", size: 17) {
 		didSet {
 			if oldValue != limitValueFont {
 				self.label2.font = limitValueFont
@@ -183,7 +183,7 @@ public class LMZGaugeView: NSView {
 		}
 	}
 	/// Text color of value label.
-	@IBInspectable public var valueTextColor: NSColor = NSColor(white: 0.1, alpha: 1.0) {
+	@IBInspectable open var valueTextColor: NSColor = NSColor(white: 0.1, alpha: 1.0) {
 		didSet {
 			if oldValue != valueTextColor {
 				if !self.useGaugeColor {
@@ -193,7 +193,7 @@ public class LMZGaugeView: NSView {
 		}
 	}
 	/// Use gauge color to show the value
-	@IBInspectable public var useGaugeColor: Bool = true{
+	@IBInspectable open var useGaugeColor: Bool = true{
 		didSet {
 			if useGaugeColor {
 				label1.textColor = self.currentRingColor
@@ -203,7 +203,7 @@ public class LMZGaugeView: NSView {
 		}
 	}
 	/// The unit of measurement.
-	@IBOutlet public var unitFormatter: NSFormatter? {
+	@IBOutlet open var unitFormatter: Formatter? {
 		didSet {
 			if oldValue != unitFormatter {
 				self.label1.stringValue = self.stringForLabel1()
@@ -213,7 +213,7 @@ public class LMZGaugeView: NSView {
 	}
 
 	/// The receiver of all gauge view delegate callbacks.
-	@IBOutlet public var delegate: LMZGaugeViewDelegate? {
+	@IBOutlet open var delegate: LMZGaugeViewDelegate? {
 		didSet {
 			updateValueAndColor()
 		}
@@ -265,7 +265,7 @@ public class LMZGaugeView: NSView {
 		if let valueString = self.delegate?.gaugeViewLabel1String?(self) {
 			return valueString
 		}
-		guard let returnValue = self.unitFormatter?.stringForObjectValue(self.doubleValue) else {
+		guard let returnValue = self.unitFormatter?.string(for: self.doubleValue) else {
 			return NSString(format:"%0.f", locale:nil, self.doubleValue) as String
 		}
 		return returnValue
@@ -275,8 +275,8 @@ public class LMZGaugeView: NSView {
 		if let valueString = self.delegate?.gaugeViewLabel2String?(self) {
 			return valueString
 		}
-		guard let valueString = self.unitFormatter?.stringForObjectValue(self.limitValue) else {
-			return NSString(format:NSLocalizedString("Limit %0.f", comment: ""), locale:nil, self.limitValue) as String
+		guard let valueString = self.unitFormatter?.string(for: self.limitValue) else {
+			return NSString(format:NSLocalizedString("Limit %0.f", comment: "") as NSString, locale:nil, self.limitValue) as String
 		}
 		return String(format: NSLocalizedString("Limit %@", comment: ""), valueString)
 	}
@@ -291,8 +291,8 @@ public class LMZGaugeView: NSView {
 	var currentRingColor: NSColor = NSColor(red: 76.0/255, green: 217.0/255, blue: 100.0/255, alpha: 1.0) {
 		didSet {
 			if oldValue != currentRingColor {
-				self.progressLayer.fillColor = currentRingColor.CGColor
-				self.progressLayer.strokeColor = currentRingColor.CGColor
+				self.progressLayer.fillColor = currentRingColor.cgColor
+				self.progressLayer.strokeColor = currentRingColor.cgColor
 				if useGaugeColor {
 					self.label1.textColor = currentRingColor
 				}
@@ -324,11 +324,11 @@ public class LMZGaugeView: NSView {
 	}()
 	lazy var label1: NSTextField! = {
 		let label = NSTextField()
-		label.bezeled = false
+		label.isBezeled = false
 		label.drawsBackground = false
-		label.editable = false
-		label.selectable = false
-		label.alignment = .Center
+		label.isEditable = false
+		label.isSelectable = false
+		label.alignment = .center
 		label.stringValue = self.stringForLabel1()
 		label.font = self.valueFont;
 		label.textColor = self.getValueColor()
@@ -337,11 +337,11 @@ public class LMZGaugeView: NSView {
 	}()
 	lazy var label2: NSTextField! = {
 		let label = NSTextField()
-		label.bezeled = false
+		label.isBezeled = false
 		label.drawsBackground = false
-		label.editable = false
-		label.selectable = false
-		label.alignment = .Center
+		label.isEditable = false
+		label.isSelectable = false
+		label.alignment = .center
 		label.stringValue = self.stringForLabel2()
 		label.font = self.limitValueFont;
 		label.textColor = self.valueTextColor;
@@ -349,7 +349,7 @@ public class LMZGaugeView: NSView {
 		return label
 	}()
 
-	func doubleFromAnyObject(any: AnyObject? ) -> Double {
+	func doubleFromAnyObject(_ any: AnyObject? ) -> Double {
 		if let theValue: AnyObject = any {
 			if let dValue = theValue as? Double {
 				return dValue
@@ -364,7 +364,7 @@ public class LMZGaugeView: NSView {
 		return 0.0
 	}
 
-	func angleFromValue( value: Double) -> CGFloat {
+	func angleFromValue( _ value: Double) -> CGFloat {
 		let level = (value - minValue)
 		if divisionUnitValue != 0 {
 			let angle = level * divisionUnitAngle / divisionUnitValue  + startAngle
@@ -373,11 +373,13 @@ public class LMZGaugeView: NSView {
 		return CGFloat(startAngle)
 	}
 
-	func drawDotAtContext(context: CGContextRef, center: CGPoint, radius: CGFloat, fillColor: CGColorRef ) {
-		CGContextBeginPath(context)
-		CGContextAddArc(context, center.x, center.y, radius, 0, CGFloat(M_PI*2), 0)
-		CGContextSetFillColorWithColor(context, fillColor);
-		CGContextFillPath(context);
+	func drawDotAtContext(_ context: CGContext, center: CGPoint, radius: CGFloat, fillColor: CGColor ) {
+        let path = CGMutablePath()
+        path.addArc(center: center, radius: radius,
+                    startAngle: 0, endAngle: CGFloat(M_PI*2), clockwise: false)
+        context.addPath(path)
+        context.setFillColor(fillColor);
+		context.fillPath();
 	}
 
 	var center: CGPoint = CGPoint(x: 0, y: 0)
@@ -385,11 +387,11 @@ public class LMZGaugeView: NSView {
 	var dotRadius: CGFloat = 0
 	var divisionCenter: [CGPoint] = []
 	var subdivisionCenter: [CGPoint] = []
-	var progressFrame: CGRect = CGRectZero
-	var progressBounds: CGRect = CGRectZero
+	var progressFrame: CGRect = CGRect.zero
+	var progressBounds: CGRect = CGRect.zero
 
-	override public func resizeSubviewsWithOldSize(oldSize: NSSize) {
-		super.resizeSubviewsWithOldSize(oldSize)
+	override open func resizeSubviews(withOldSize oldSize: NSSize) {
+		super.resizeSubviews(withOldSize: oldSize)
 		prepareMath()
 	}
 
@@ -400,8 +402,8 @@ public class LMZGaugeView: NSView {
 		divisionUnitValue = (maxValue - minValue)/Double(numOfDivisions)
 		divisionUnitAngle = (M_PI * 2 - fabs(endAngle - startAngle))/Double(numOfDivisions)
 
-		center = CGPoint(x: CGRectGetWidth(bounds)/2, y: 0)
-		ringRadius = (min(CGRectGetWidth(bounds)/2, CGRectGetHeight(bounds)) - ringThickness/2)
+		center = CGPoint(x: bounds.width/2, y: 0)
+		ringRadius = (min(bounds.width/2, bounds.height) - ringThickness/2)
 		dotRadius = ringRadius - ringThickness/2 - divisionsPadding - divisionsRadius/2
 
 		let fx: CGFloat = center.x - ringRadius - ringThickness/2
@@ -425,9 +427,9 @@ public class LMZGaugeView: NSView {
 
 			let a1 = 180-(startAngle).toDegree
 			let a2 = 180-((endAngle - startAngle) * doubleValue / self.maxValue).toDegree
-			let w = CGRectGetWidth(progressLayer.bounds)/2
-			smoothedPath.appendBezierPathWithArcWithCenter(CGPoint(x:w,y:w), radius: w, startAngle: a1, endAngle: a2, clockwise:true)
-			smoothedPath.appendBezierPathWithArcWithCenter(CGPoint(x:w,y:w), radius: w-ringThickness, startAngle: a2, endAngle: a1, clockwise:false)
+			let w = progressLayer.bounds.width/2
+			smoothedPath.appendArc(withCenter: CGPoint(x:w,y:w), radius: w, startAngle: a1, endAngle: a2, clockwise:true)
+			smoothedPath.appendArc(withCenter: CGPoint(x:w,y:w), radius: w-ringThickness, startAngle: a2, endAngle: a1, clockwise:false)
 
 			progressLayer.path = BezierPath(smoothedPath)
 		}
@@ -455,42 +457,43 @@ public class LMZGaugeView: NSView {
 			divisionCenter.append(dotCenter)
 		}
 
-		var lblFrame = CGRect(origin: CGPointZero, size: label1.intrinsicContentSize)
+		var lblFrame = CGRect(origin: CGPoint.zero, size: label1.intrinsicContentSize)
 		lblFrame.origin.y = (progressLayer.frame.height-lblFrame.height)/2
 		lblFrame.size.width = self.frame.width
 		self.label1.frame = lblFrame
 
 		let origin = CGPoint(x:label1.frame.origin.x, y: label1.frame.origin.y-label2.intrinsicContentSize.height)
-		let size = CGSize(width: CGRectGetWidth(self.label1.frame), height:label2.intrinsicContentSize.height)
+		let size = CGSize(width: self.label1.frame.width, height:label2.intrinsicContentSize.height)
 		self.label2.frame = CGRect(origin: origin, size: size)
 	}
 
-	override public func drawRect(dirtyRect: NSRect) {
+	override open func draw(_ dirtyRect: NSRect) {
 		if invalidateMath {
 			prepareMath()
 		}
-		let context: CGContext = NSGraphicsContext.currentContext()!.CGContext
+		let context: CGContext = NSGraphicsContext.current()!.cgContext
 
 		// Draw the ring progress background
-		CGContextSetLineWidth(context, ringThickness);
-		CGContextBeginPath(context);
-		CGContextAddArc(context, center.x, center.y, CGFloat(ringRadius), CGFloat(startAngle), CGFloat(endAngle), 0);
-		CGContextSetStrokeColorWithColor(context, ringBackgroundColor.CGColor);
-		CGContextStrokePath(context);
+		context.setLineWidth(ringThickness);
+		context.beginPath();
+        context.addArc(center: center, radius: CGFloat(ringRadius),
+                        startAngle: CGFloat(startAngle), endAngle: CGFloat(endAngle), clockwise: false)
+		context.setStrokeColor(ringBackgroundColor.cgColor);
+		context.strokePath();
 
 		// Draw divisions and subdivisions
 		for center in divisionCenter {
-			drawDotAtContext(context, center: center, radius: divisionsRadius, fillColor: divisionsColor.CGColor)
+			drawDotAtContext(context, center: center, radius: divisionsRadius, fillColor: divisionsColor.cgColor)
 		}
 		for center in subdivisionCenter {
-			drawDotAtContext(context, center: center, radius: subDivisionsRadius, fillColor: subDivisionsColor.CGColor)
+			drawDotAtContext(context, center: center, radius: subDivisionsRadius, fillColor: subDivisionsColor.cgColor)
 		}
 
 		// Draw the limit dot
 		if showLimitDot {
 			let angle = angleFromValue(limitValue)
 			let dotCenter = CGPoint(x:center.x - dotRadius * CGFloat(cos(angle)), y: dotRadius * CGFloat(sin(angle)) + center.y)
-			drawDotAtContext(context, center: dotCenter, radius: limitDotRadius, fillColor: limitDotColor.CGColor)
+			drawDotAtContext(context, center: dotCenter, radius: limitDotRadius, fillColor: limitDotColor.cgColor)
 		}
 	}
 }
@@ -513,28 +516,28 @@ extension Double {
 	}
 }
 
-func BezierPath(bezier: NSBezierPath) -> CGPath {
-	let path: CGMutablePath = CGPathCreateMutable()
+func BezierPath(_ bezier: NSBezierPath) -> CGPath {
+	let path: CGMutablePath = CGMutablePath()
 	var points: [NSPoint] = [NSPoint(),NSPoint(),NSPoint()]
 	var didClosePath: Bool = false
 
 	for idx in 0..<bezier.elementCount {
-		let elementType = bezier.elementAtIndex(idx, associatedPoints: &points)
+		let elementType = bezier.element(at: idx, associatedPoints: &points)
 		switch(elementType)
 		{
-		case .MoveToBezierPathElement:
-			CGPathMoveToPoint(path, nil, points[0].x, points[0].y)
-		case .CurveToBezierPathElement:
-			CGPathAddCurveToPoint(path, nil, points[0].x, points[0].y, points[1].x, points[1].y, points[2].x, points[2].y)
-		case .LineToBezierPathElement:
-			CGPathAddLineToPoint(path, nil, points[0].x, points[0].y)
-		case .ClosePathBezierPathElement:
-			CGPathCloseSubpath(path)
+		case .moveToBezierPathElement:
+            path.move(to: points[0])
+		case .curveToBezierPathElement:
+            path.addCurve( to: points[2], control1: points[0], control2: points[1])
+		case .lineToBezierPathElement:
+            path.addLine(to: points[0])
+		case .closePathBezierPathElement:
+			path.closeSubpath()
 			didClosePath = true
 		}
 	}
 	if didClosePath == false {
-		CGPathCloseSubpath(path)
+		path.closeSubpath()
 	}
-	return CGPathCreateCopy(path)!
+	return path.copy()!
 }

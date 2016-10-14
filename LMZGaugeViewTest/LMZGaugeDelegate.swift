@@ -12,7 +12,7 @@ import Cocoa
 @objc
 class LMZGaugeDelegate : NSObject, LMZGaugeViewDelegate
 {
-	func gaugeViewRingColor(gaugeView: LMZGaugeView) -> NSColor? {
+	func gaugeViewRingColor(_ gaugeView: LMZGaugeView) -> NSColor? {
 
 		var power: Double = 0
 		let greenPower = gaugeView.minValue+(gaugeView.limitValue - gaugeView.minValue)*0.75
@@ -27,10 +27,10 @@ class LMZGaugeDelegate : NSObject, LMZGaugeViewDelegate
 		return NSColor(deviceHue: CGFloat(H), saturation: CGFloat(S), brightness: CGFloat(B), alpha: 1.0)
 	}
 
-	func gaugeViewLabel1String(gaugeView: LMZGaugeView) -> String? {
+	func gaugeViewLabel1String(_ gaugeView: LMZGaugeView) -> String? {
 		return NSString(format:"$%0.f", locale:nil, gaugeView.doubleValue) as String
 	}
-	func gaugeViewLabel2String(gaugeView: LMZGaugeView) -> String? {
+	func gaugeViewLabel2String(_ gaugeView: LMZGaugeView) -> String? {
 		if gaugeView.doubleValue < gaugeView.limitValue*0.75 {
 			return ""
 		}
