@@ -426,7 +426,7 @@ open class LMZGaugeView: NSView {
 			let smoothedPath = NSBezierPath()
 
 			let a1 = 180-(startAngle).toDegree
-			let a2 = (self.maxValue.isNaN || self.maxValue.isZero) ? 180 : 180-((endAngle - startAngle) * doubleValue / self.maxValue).toDegree
+			var a2 = (self.maxValue.isNaN || self.maxValue.isZero) ? 180 : 180-((endAngle - startAngle) * doubleValue / self.maxValue).toDegree
 			if a2.isNaN {
 				a2 = a1
 			}
