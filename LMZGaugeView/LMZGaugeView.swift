@@ -426,7 +426,10 @@ open class LMZGaugeView: NSView {
 			let smoothedPath = NSBezierPath()
 
 			let a1 = 180-(startAngle).toDegree
-            let a2 = (self.maxValue.isNaN || self.maxValue.isZero) ? 180 : 180-((endAngle - startAngle) * doubleValue / self.maxValue).toDegree
+			let a2 = (self.maxValue.isNaN || self.maxValue.isZero) ? 180 : 180-((endAngle - startAngle) * doubleValue / self.maxValue).toDegree
+			if a2.isNaN {
+				a2 = a1
+			}
 			let w = progressLayer.bounds.width/2
 			smoothedPath.appendArc(withCenter: CGPoint(x:w,y:w), radius: w, startAngle: a1, endAngle: a2, clockwise:true)
 			smoothedPath.appendArc(withCenter: CGPoint(x:w,y:w), radius: w-ringThickness, startAngle: a2, endAngle: a1, clockwise:false)
